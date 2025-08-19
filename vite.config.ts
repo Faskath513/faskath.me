@@ -1,5 +1,5 @@
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
+import react from "@vitejs/plugin-react"; // <- change here
 import path from "path";
 
 // https://vitejs.dev/config/
@@ -9,7 +9,7 @@ export default defineConfig(({ mode }) => ({
     port: 3000,
   },
   plugins: [
-    react(),
+    react(), // uses esbuild instead of swc
   ].filter(Boolean),
   resolve: {
     alias: {
