@@ -7,7 +7,7 @@ const ParticleField = () => {
   const ref = useRef<THREE.Points>(null);
   
   const particlesPosition = useMemo(() => {
-    const positions = new Float32Array(2000 * 3);
+    const positions = new Float32Array(200 * 3);
     
     for (let i = 0; i < 2000; i++) {
       positions[i * 3] = (Math.random() - 0.5) * 100;
@@ -44,9 +44,9 @@ const FloatingCube = ({ position }: { position: [number, number, number] }) => {
   
   useFrame((state) => {
     if (ref.current) {
-      ref.current.rotation.x = Math.sin(state.clock.elapsedTime) * 0.3;
-      ref.current.rotation.y = state.clock.elapsedTime * 0.5;
-      ref.current.position.y = position[1] + Math.sin(state.clock.elapsedTime * 2) * 0.5;
+      ref.current.rotation.x = Math.sin(state.clock.elapsedTime) * 1;
+      ref.current.rotation.y = state.clock.elapsedTime * 1;
+      ref.current.position.y = position[1] + Math.sin(state.clock.elapsedTime * 2) * 1;
     }
   });
 
