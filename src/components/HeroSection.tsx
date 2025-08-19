@@ -308,21 +308,21 @@ const HeroSection = () => {
                 <motion.div className="absolute top-4 right-4 tech-card w-32 floating" whileHover={{ scale: 1.05 }}>
                   <div className="text-center">
                     <div className="text-2xl mb-2">⚛️</div>
-                    <div className="text-sm font-medium">React</div>
+                    <div className="text-sm font-medium">React/Next.js</div>
                   </div>
                 </motion.div>
 
-                <motion.div className="absolute bottom-16 left-8 tech-card w-32 floating-delayed" whileHover={{ scale: 1.05 }}>
+                <motion.div className="absolute bottom-16 left-8 tech-card w-40 floating-delayed" whileHover={{ scale: 1.05 }}>
                   <div className="text-center">
                     <div className="text-2xl mb-2">🚀</div>
-                    <div className="text-sm font-medium">Node.js</div>
+                    <div className="text-sm font-medium">Node.js/Django</div>
                   </div>
                 </motion.div>
 
-                <motion.div className="absolute top-20 left-12 tech-card w-32 floating" whileHover={{ scale: 1.05 }}>
+                <motion.div className="absolute top-20 left-12 tech-card w-40 floating" whileHover={{ scale: 1.05 }}>
                   <div className="text-center">
                     <div className="text-2xl mb-2">🐘</div>
-                    <div className="text-sm font-medium">PHP</div>
+                    <div className="text-sm font-medium">Symfony/Laravel</div>
                   </div>
                 </motion.div>
 
