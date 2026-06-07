@@ -1,363 +1,239 @@
-// import React from 'react';
-// import { motion } from 'framer-motion';
-// import { ArrowDown, Download, Mail } from 'lucide-react';
-// import { Button } from '@/components/ui/button';
-// import heroImage from '@/assets/photo-output.jpg';
-// import heroImageMobile from '@/assets/hero1.jpg';
-
-// const HeroSection = () => {
-//   const containerVariants = {
-//     hidden: { opacity: 0 },
-//     visible: {
-//       opacity: 1,
-//       transition: {
-//         staggerChildren: 0.2
-//       }
-//     }
-//   };
-
-//   const itemVariants = {
-//     hidden: { opacity: 0, y: 30 },
-//     visible: {
-//       opacity: 1,
-//       y: 0,
-//       transition: {
-//         duration: 0.6,
-//         ease: [0.25, 0.1, 0.25, 1] as [number, number, number, number]
-//       }
-//     }
-//   };
-
-//   return (
-//     <section className="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
-//       {/* Background Image */}
-//       <div className="absolute inset-0 z-0">
-//         <img 
-//           src={heroImage} 
-//           alt="Mohamed Faskath - Software Engineer"
-//           className="w-full h-full object-cover opacity-60"
-//         />
-//         <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent"></div>
-//       </div>
-
-//       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-//         <motion.div
-//           variants={containerVariants}
-//           initial="hidden"
-//           animate="visible"
-//           className="text-center lg:text-left"
-//         >
-//           <div className="grid lg:grid-cols-2 gap-12 items-center">
-//             {/* Text Content */}
-//             <div className="space-y-8">
-//               <motion.div variants={itemVariants} className="space-y-4">
-//                 <motion.h2 
-//                   variants={itemVariants}
-//                   className="text-xl md:text-2xl text-tech-cyan font-medium"
-//                 >
-//                   Hello, I'm
-//                 </motion.h2>
-//                 <motion.h1 
-//                   variants={itemVariants}
-//                   className="hero-text leading-tight"
-//                 >
-//                   Mohamed Faskath
-//                 </motion.h1>
-//                 <motion.h3 
-//                   variants={itemVariants}
-//                   className="text-2xl md:text-4xl font-semibold text-foreground"
-//                 >
-//                   Full-Stack Software Engineer
-//                 </motion.h3>
-//               </motion.div>
-
-//               <motion.p 
-//                 variants={itemVariants}
-//                 className="hero-subtitle max-w-2xl mx-auto lg:mx-0"
-//               >
-//                 Self-motivated engineer passionate about building scalable web and AI-driven solutions. 
-//                 Currently contributing to innovative projects at Clancode Labs and SnapWerks, 
-//                 with expertise in React, Node.js, PHP, and modern development practices.
-//               </motion.p>
-
-//               <motion.div 
-//                 variants={itemVariants}
-//                 className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
-//               >
-//                 <Button 
-//                   size="lg"
-//                   className="bg-gradient-primary hover:opacity-90 text-white font-semibold px-8 py-3 rounded-lg transition-all duration-300 glow-primary"
-//                   onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
-//                 >
-//                   <Mail className="mr-2 h-5 w-5" />
-//                   Get In Touch
-//                 </Button>
-//                 <Button 
-//                   variant="outline" 
-//                   size="lg"
-//                   className="border-primary text-primary hover:bg-primary hover:text-white font-semibold px-8 py-3 rounded-lg transition-all duration-300"
-//                   asChild
-//                 >
-//                   <a href="/Faskath_Resume.pdf" target="_blank" rel="noopener noreferrer">
-//                     <Download className="mr-2 h-5 w-5" />
-//                     Download CV
-//                   </a>
-//                 </Button>
-//               </motion.div>
-
-//               <motion.div 
-//                 variants={itemVariants}
-//                 className="flex items-center justify-center lg:justify-start space-x-6 text-sm text-muted-foreground"
-//               >
-//                 <div className="flex items-center space-x-2">
-//                   <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-//                   <span>Available for freelance</span>
-//                 </div>
-//                 <div className="flex items-center space-x-2">
-//                   <div className="w-2 h-2 bg-tech-cyan rounded-full"></div>
-//                   <span>Based in Sri Lanka</span>
-//                 </div>
-//               </motion.div>
-//             </div>
-
-//             {/* Floating Elements */}
-//             <motion.div 
-//               variants={itemVariants}
-//               className="relative hidden lg:block"
-//             >
-//               <div className="relative w-full h-96">
-//                 {/* Tech Stack Cards */}
-//                 <motion.div 
-//                   className="absolute top-4 right-4 tech-card w-32 floating"
-//                   whileHover={{ scale: 1.05 }}
-//                 >
-//                   <div className="text-center">
-//                     <div className="text-2xl mb-2">⚛️</div>
-//                     <div className="text-sm font-medium">React</div>
-//                   </div>
-//                 </motion.div>
-
-//                 <motion.div 
-//                   className="absolute bottom-16 left-8 tech-card w-32 floating-delayed"
-//                   whileHover={{ scale: 1.05 }}
-//                 >
-//                   <div className="text-center">
-//                     <div className="text-2xl mb-2">🚀</div>
-//                     <div className="text-sm font-medium">Node.js</div>
-//                   </div>
-//                 </motion.div>
-
-//                 <motion.div 
-//                   className="absolute top-20 left-12 tech-card w-32 floating"
-//                   whileHover={{ scale: 1.05 }}
-//                 >
-//                   <div className="text-center">
-//                     <div className="text-2xl mb-2">🐘</div>
-//                     <div className="text-sm font-medium">PHP</div>
-//                   </div>
-//                 </motion.div>
-
-//                 <motion.div 
-//                   className="absolute bottom-4 right-16 tech-card w-32 floating-delayed"
-//                   whileHover={{ scale: 1.05 }}
-//                 >
-//                   <div className="text-center">
-//                     <div className="text-2xl mb-2">🤖</div>
-//                     <div className="text-sm font-medium">AI/ML</div>
-//                   </div>
-//                 </motion.div>
-//               </div>
-//             </motion.div>
-//           </div>
-
-//           {/* Scroll Indicator */}
-//           <motion.div 
-//             variants={itemVariants}
-//             className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-//           >
-//             <motion.div
-//               animate={{ y: [0, 10, 0] }}
-//               transition={{ duration: 2, repeat: Infinity }}
-//               className="flex flex-col items-center text-muted-foreground cursor-pointer"
-//               onClick={() => document.querySelector('#about')?.scrollIntoView({ behavior: 'smooth' })}
-//             >
-//               <span className="text-sm mb-2">Scroll Down</span>
-//               <ArrowDown size={20} />
-//             </motion.div>
-//           </motion.div>
-//         </motion.div>
-//       </div>
-//     </section>
-//   );
-// };
-
-// export default HeroSection;
-
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { ArrowDown, Download, Mail } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowDown, Download, Calendar, Sparkles, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import heroImageDesktop from '@/assets/photo-output.jpg';
 import heroImageMobile from '@/assets/hero1.jpg';
 
+const roles = [
+  'AI Systems Architect',
+  'AI Automation Consultant',
+  'Enterprise Solutions Architect',
+  'Founder & Product Builder',
+];
+
+const metrics = [
+  { value: 50, label: 'AI Agents Built', suffix: '+' },
+  { value: 500, label: 'Automated Workflows', suffix: '+' },
+  { value: 10, label: 'Enterprise Systems', suffix: '+' },
+  { value: 1, label: 'Tasks Automated', suffix: 'M+' },
+  { value: 20, label: 'AI Integrations', suffix: '+' },
+  { value: 5, label: 'AI Products Launched', suffix: '+' },
+];
+
+const useCounter = (target: number, inView: boolean, duration = 1800) => {
+  const [value, setValue] = useState(0);
+  useEffect(() => {
+    if (!inView) return;
+    let start = 0;
+    const step = Math.ceil(target / (duration / 30));
+    const timer = setInterval(() => {
+      start = Math.min(start + step, target);
+      setValue(start);
+      if (start >= target) clearInterval(timer);
+    }, 30);
+    return () => clearInterval(timer);
+  }, [inView, target, duration]);
+  return value;
+};
+
+const MetricCard = ({ metric, inView }: { metric: (typeof metrics)[0]; inView: boolean }) => {
+  const count = useCounter(metric.value, inView);
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.5 }}
+      className="glass-card p-4 text-center group hover:border-tech-blue/40 transition-all duration-300"
+    >
+      <div className="text-2xl md:text-3xl font-bold text-tech-blue metric-counter">
+        {count}{metric.suffix}
+      </div>
+      <div className="text-xs text-muted-foreground mt-1 leading-tight">{metric.label}</div>
+    </motion.div>
+  );
+};
+
 const HeroSection = () => {
   const [heroImage, setHeroImage] = useState(heroImageDesktop);
+  const [roleIndex, setRoleIndex] = useState(0);
+  const [metricsInView, setMetricsInView] = useState(false);
+  const metricsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 768) { // Mobile breakpoint
-        setHeroImage(heroImageMobile);
-      } else {
-        setHeroImage(heroImageDesktop);
-      }
+      setHeroImage(window.innerWidth < 768 ? heroImageMobile : heroImageDesktop);
     };
-
-    handleResize(); // Set initial image
+    handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setRoleIndex(prev => (prev + 1) % roles.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setMetricsInView(true); },
+      { threshold: 0.3 }
+    );
+    if (metricsRef.current) observer.observe(metricsRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   const containerVariants = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.2 } }
+    visible: { opacity: 1, transition: { staggerChildren: 0.15 } },
   };
 
   const itemVariants = {
     hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] as [number, number, number, number] } }
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] as [number, number, number, number] } },
   };
 
   return (
     <section className="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
-        <img 
-          src={heroImage} 
-          alt="Mohamed Faskath - Software Engineer"
+        <img
+          src={heroImage}
+          alt="Mohamed Faskath - AI Systems Architect"
           className="w-full h-full object-cover opacity-80"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-background/40" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      {/* Ambient glow */}
+      <div className="absolute top-1/4 left-1/3 w-96 h-96 bg-tech-blue/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-tech-purple/5 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="text-center lg:text-left"
+          className="lg:max-w-3xl"
         >
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Text Content */}
-            <div className="space-y-8">
-              <motion.div variants={itemVariants} className="space-y-4">
-                <motion.h2 variants={itemVariants} className="text-xl md:text-2xl text-tech-cyan font-medium">
-                  Hello, I'm
-                </motion.h2>
-                <motion.h1 variants={itemVariants} className="hero-text leading-tight">
-                  Mohamed Faskath
-                </motion.h1>
-                <motion.h3 variants={itemVariants} className="text-2xl md:text-4xl font-semibold text-foreground">
-                  Full-Stack Software Engineer
-                </motion.h3>
-              </motion.div>
-
-              <motion.p variants={itemVariants} className="hero-subtitle max-w-2xl mx-auto lg:mx-0">
-                Self-motivated engineer passionate about building scalable web and AI-driven solutions. 
-                Currently contributing to innovative projects at Clancode Labs and SnapWerks, 
-                with expertise in React, Node.js, PHP, and modern development practices.
-              </motion.p>
-
-              <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <Button 
-                  size="lg"
-                  className="bg-gradient-primary hover:opacity-90 text-white font-semibold px-8 py-3 rounded-lg transition-all duration-300 glow-primary"
-                  onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
-                >
-                  <Mail className="mr-2 h-5 w-5" />
-                  Get In Touch
-                </Button>
-                <Button 
-                  variant="outline" 
-                  size="lg"
-                  className="border-primary text-primary hover:bg-primary hover:text-white font-semibold px-8 py-3 rounded-lg transition-all duration-300"
-                  asChild
-                >
-                  <a href="/Faskath_Resume.pdf" target="_blank" rel="noopener noreferrer">
-                    <Download className="mr-2 h-5 w-5" />
-                    Download CV
-                  </a>
-                </Button>
-              </motion.div>
-
-              <motion.div variants={itemVariants} className="flex items-center justify-center lg:justify-start space-x-6 text-sm text-muted-foreground">
-                <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                  <span>Available for freelance</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-tech-cyan rounded-full"></div>
-                  <span>Based in Sri Lanka</span>
-                </div>
-              </motion.div>
-            </div>
-
-            {/* Floating Elements */}
-            <motion.div variants={itemVariants} className="relative hidden lg:block">
-              <div className="relative w-full h-96">
-                {/* Tech Stack Cards */}
-                <motion.div className="absolute top-4 right-4 tech-card w-32 floating" whileHover={{ scale: 1.05 }}>
-                  <div className="text-center">
-                    <div className="text-2xl mb-2">⚛️</div>
-                    <div className="text-sm font-medium">React/Next.js</div>
-                  </div>
-                </motion.div>
-
-                <motion.div className="absolute bottom-16 left-8 tech-card w-40 floating-delayed" whileHover={{ scale: 1.05 }}>
-                  <div className="text-center">
-                    <div className="text-2xl mb-2">🚀</div>
-                    <div className="text-sm font-medium">Node.js/Django</div>
-                  </div>
-                </motion.div>
-
-                <motion.div className="absolute top-20 left-12 tech-card w-40 floating" whileHover={{ scale: 1.05 }}>
-                  <div className="text-center">
-                    <div className="text-2xl mb-2">🐘</div>
-                    <div className="text-sm font-medium">Symfony/Laravel</div>
-                  </div>
-                </motion.div>
-
-                <motion.div className="absolute bottom-4 right-16 tech-card w-32 floating-delayed" whileHover={{ scale: 1.05 }}>
-                  <div className="text-center">
-                    <div className="text-2xl mb-2">🤖</div>
-                    <div className="text-sm font-medium">AI/ML</div>
-                  </div>
-                </motion.div>
-              </div>
-            </motion.div>
-          </div>
-
-          {/* Scroll Indicator */}
-          <motion.div
-            variants={itemVariants}
-            className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-        >
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-            className="flex flex-col items-center cursor-pointer group"
-            onClick={() => document.querySelector('#about')?.scrollIntoView({ behavior: 'smooth' })}
-          >
-            {/* Circle around arrow */}
-            <div className="w-10 h-10 border-2 border-tech-cyan rounded-full flex items-center justify-center mb-2 group-hover:bg-tech-cyan group-hover:text-background transition-all duration-300">
-              <ArrowDown size={20} />
-            </div>
-            <span className="text-sm text-muted-foreground uppercase tracking-wider animate-pulse">
-              Scroll Down
+          {/* Status badge */}
+          <motion.div variants={itemVariants} className="mb-6">
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-tech-emerald/30 bg-tech-emerald/10 text-tech-emerald text-sm font-medium">
+              <span className="w-2 h-2 bg-tech-emerald rounded-full animate-pulse" />
+              Available for AI Consulting 
             </span>
           </motion.div>
-        </motion.div>
+
+          {/* Intro */}
+          <motion.p variants={itemVariants} className="text-tech-blue font-medium text-lg mb-3 tracking-wide">
+            Mohamed Faskath
+          </motion.p>
+
+          {/* Animated role title */}
+          <motion.div variants={itemVariants} className="h-10 md:h-12 overflow-hidden mb-6">
+            <AnimatePresence mode="wait">
+              <motion.h2
+                key={roleIndex}
+                initial={{ y: 40, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: -40, opacity: 0 }}
+                transition={{ duration: 0.4, ease: 'easeOut' }}
+                className="text-xl md:text-2xl font-semibold text-tech-cyan"
+              >
+                {roles[roleIndex]}
+              </motion.h2>
+            </AnimatePresence>
+          </motion.div>
+
+          {/* Main headline */}
+          <motion.h1
+            variants={itemVariants}
+            className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-foreground mb-6"
+          >
+            Building Enterprise{' '}
+            <span className="shimmer-text">AI Systems</span>
+            <br />
+            That Think, Decide,{' '}
+            <br className="hidden md:block" />
+            and Execute
+          </motion.h1>
+
+          {/* Subheading */}
+          <motion.p variants={itemVariants} className="hero-subtitle max-w-2xl mb-8">
+            I architect AI-powered operating systems, autonomous agent ecosystems, enterprise automation
+            platforms, and intelligent business infrastructures using modern LLMs, multi-agent frameworks,
+            and AI orchestration technologies.
+          </motion.p>
+
+          {/* CTA buttons */}
+          <motion.div variants={itemVariants} className="flex flex-wrap gap-3 mb-12">
+            <Button
+              size="lg"
+              className="bg-gradient-primary hover:opacity-90 text-white font-semibold px-6 py-3 rounded-lg transition-all duration-300 glow-primary"
+              onClick={() => document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              <Sparkles className="mr-2 h-4 w-4" />
+              Explore Projects
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              className="border-tech-cyan/50 text-tech-cyan hover:bg-tech-cyan/10 font-semibold px-6 py-3 rounded-lg transition-all duration-300"
+              onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              <Calendar className="mr-2 h-4 w-4" />
+              Book AI Consultation
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              className="border-border text-foreground hover:border-primary/50 font-semibold px-6 py-3 rounded-lg transition-all duration-300"
+              asChild
+            >
+              <a href="/Faskath_Resume.pdf" target="_blank" rel="noopener noreferrer">
+                <Download className="mr-2 h-4 w-4" />
+                Download Resume
+              </a>
+            </Button>
+          </motion.div>
+
+          {/* Metrics grid */}
+          <motion.div ref={metricsRef} variants={itemVariants}>
+            <p className="text-xs text-muted-foreground uppercase tracking-widest mb-4 font-medium flex items-center gap-2">
+              <ChevronRight className="w-3 h-3 text-tech-blue" />
+              Impact by the numbers
+            </p>
+            <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
+              {metrics.map((metric) => (
+                <MetricCard key={metric.label} metric={metric} inView={metricsInView} />
+              ))}
+            </div>
+          </motion.div>
         </motion.div>
       </div>
+
+      {/* Scroll indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+      >
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+          className="flex flex-col items-center cursor-pointer group"
+          onClick={() => document.querySelector('#about')?.scrollIntoView({ behavior: 'smooth' })}
+        >
+          <div className="w-9 h-9 border border-tech-blue/40 rounded-full flex items-center justify-center mb-2 group-hover:border-tech-blue group-hover:bg-tech-blue/10 transition-all duration-300">
+            <ArrowDown size={16} className="text-tech-blue" />
+          </div>
+          <span className="text-xs text-muted-foreground uppercase tracking-widest">Scroll</span>
+        </motion.div>
+      </motion.div>
     </section>
   );
 };
