@@ -5,10 +5,10 @@ import { Card, CardContent } from '@/components/ui/card';
 
 const testimonials = [
   {
-    name: 'Rashid Al-Mansoori',
-    role: 'CEO',
-    company: 'Al-Mansoori Construction Group',
-    location: 'Dubai, UAE',
+    name: 'Farzath Mohamed Hassan',
+    role: 'Procurement Engineer',
+    company: 'Suhail Industrial Holding Group',
+    location: 'Doha, Qatar',
     quote: "Mohamed built us a complete AI-powered construction OS that transformed how we handle BOQ analysis, procurement, and project forecasting. What used to take our team a week now happens in hours with better accuracy than ever before.",
     rating: 5,
     highlight: 'Construction AI OS',
@@ -16,8 +16,8 @@ const testimonials = [
     color: 'tech-orange',
   },
   {
-    name: 'Priya Nair',
-    role: 'Operations Director',
+    name: 'Adhlan Nazeemudeen',
+    role: 'Director of ArwaShawl',
     company: 'Arwa Shawl Manufacturing',
     location: 'Sri Lanka',
     quote: "The Fashion ERP Mohamed architected with AI-powered design generation, OCR invoice processing, and demand forecasting has completely modernized our manufacturing operations. Truly enterprise-grade work.",
@@ -27,7 +27,7 @@ const testimonials = [
     color: 'tech-pink',
   },
   {
-    name: 'Dilshan Perera',
+    name: 'Nawahiru Mohamed',
     role: 'Founder',
     company: 'Agentix Business Solutions',
     location: 'Colombo, Sri Lanka',
@@ -38,7 +38,7 @@ const testimonials = [
     color: 'tech-blue',
   },
   {
-    name: 'Faruq Ibrahim',
+    name: 'Mohamed Fawas',
     role: 'Managing Director',
     company: 'Twin Properties & Rentals',
     location: 'Sri Lanka',

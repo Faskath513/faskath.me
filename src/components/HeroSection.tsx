@@ -193,7 +193,7 @@ const HeroSection = () => {
               className="border-border text-foreground hover:border-primary/50 font-semibold px-6 py-3 rounded-lg transition-all duration-300"
               asChild
             >
-              <a href="/Faskath_Resume.pdf" target="_blank" rel="noopener noreferrer">
+              <a href="/Mohamed Faskath -AI.pdf" target="_blank" rel="noopener noreferrer">
                 <Download className="mr-2 h-4 w-4" />
                 Download Resume
               </a>
