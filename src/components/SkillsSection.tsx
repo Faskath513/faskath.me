@@ -1,7 +1,41 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Brain, Network, Cpu, GitBranch, Database, Globe, Server, Layers } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
+
+const TiltCard = ({ children, className }: { children: React.ReactNode; className?: string }) => {
+  const rawX = useMotionValue(0);
+  const rawY = useMotionValue(0);
+  const rotateX = useSpring(useTransform(rawY, [-0.5, 0.5], [6, -6]), { stiffness: 300, damping: 30 });
+  const rotateY = useSpring(useTransform(rawX, [-0.5, 0.5], [-6, 6]), { stiffness: 300, damping: 30 });
+
+  const onMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    rawX.set((e.clientX - r.left) / r.width - 0.5);
+    rawY.set((e.clientY - r.top) / r.height - 0.5);
+  };
+  const onMouseLeave = () => { rawX.set(0); rawY.set(0); };
+
+  return (
+    <motion.div
+      style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
+      onMouseMove={onMouseMove}
+      onMouseLeave={onMouseLeave}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+};
+
+const tagContainerVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.04 } },
+};
+const tagVariants = {
+  hidden: { opacity: 0, scale: 0.8, y: 8 },
+  visible: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.3, ease: [0.25, 0.1, 0.25, 1] } },
+};
 
 const techCategories = [
   {
@@ -97,37 +131,45 @@ const SkillsSection = () => {
         </motion.div>
 
         {/* Tech grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5" style={{ perspective: '1200px' }}>
           {techCategories.map((category, index) => (
             <motion.div
               key={category.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.07 }}
+              initial={{ opacity: 0, y: 24, scale: 0.96 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.5, delay: index * 0.07, ease: [0.25, 0.1, 0.25, 1] }}
               viewport={{ once: true }}
-              whileHover={{ y: -5 }}
             >
-              <Card className={`tech-card h-full border ${category.border} transition-all duration-300`}>
-                <CardContent className="p-5">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className={`w-9 h-9 rounded-lg ${category.bg} flex items-center justify-center flex-shrink-0`}>
-                      <category.icon className={`w-4.5 h-4.5 ${category.color}`} />
+              <TiltCard className="h-full">
+                <Card className={`tech-card h-full border ${category.border} transition-all duration-300 cursor-default`}>
+                  <CardContent className="p-5">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className={`w-9 h-9 rounded-lg ${category.bg} flex items-center justify-center flex-shrink-0`}>
+                        <category.icon className={`w-4.5 h-4.5 ${category.color}`} />
+                      </div>
+                      <h3 className={`text-sm font-semibold ${category.color}`}>{category.title}</h3>
                     </div>
-                    <h3 className={`text-sm font-semibold ${category.color}`}>{category.title}</h3>
-                  </div>
-                  <div className="flex flex-wrap gap-1.5">
-                    {category.items.map(item => (
-                      <motion.span
-                        key={item}
-                        whileHover={{ scale: 1.05 }}
-                        className={`px-2 py-1 text-xs rounded-md border ${category.bg} ${category.color} ${category.border} cursor-default font-medium`}
-                      >
-                        {item}
-                      </motion.span>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
+                    <motion.div
+                      className="flex flex-wrap gap-1.5"
+                      variants={tagContainerVariants}
+                      initial="hidden"
+                      whileInView="visible"
+                      viewport={{ once: true }}
+                    >
+                      {category.items.map(item => (
+                        <motion.span
+                          key={item}
+                          variants={tagVariants}
+                          whileHover={{ scale: 1.08, y: -2 }}
+                          className={`px-2 py-1 text-xs rounded-md border ${category.bg} ${category.color} ${category.border} cursor-default font-medium`}
+                        >
+                          {item}
+                        </motion.span>
+                      ))}
+                    </motion.div>
+                  </CardContent>
+                </Card>
+              </TiltCard>
             </motion.div>
           ))}
         </div>

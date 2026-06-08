@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useTransform, useSpring } from 'framer-motion';
 import { ArrowDown, Download, Calendar, Sparkles, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import heroImageDesktop from '@/assets/photo-output.jpg';
@@ -59,6 +59,12 @@ const HeroSection = () => {
   const [roleIndex, setRoleIndex] = useState(0);
   const [metricsInView, setMetricsInView] = useState(false);
   const metricsRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  const { scrollY } = useScroll();
+  const rawBgY = useTransform(scrollY, [0, 700], ['0%', '22%']);
+  const bgY = useSpring(rawBgY, { stiffness: 80, damping: 20 });
+  const bgOpacity = useTransform(scrollY, [0, 500], [0.8, 0.3]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -96,21 +102,35 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
-      {/* Background Image */}
-      <div className="absolute inset-0 z-0">
-        <img
+    <section ref={sectionRef} className="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
+      {/* Parallax background */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <motion.img
           src={heroImage}
           alt="Mohamed Faskath - AI Systems Architect"
-          className="w-full h-full object-cover opacity-80"
+          className="w-full h-[115%] object-cover"
+          style={{ y: bgY, opacity: bgOpacity }}
         />
         <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-background/40" />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
       </div>
 
-      {/* Ambient glow */}
-      <div className="absolute top-1/4 left-1/3 w-96 h-96 bg-tech-blue/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-tech-purple/5 rounded-full blur-3xl pointer-events-none" />
+      {/* Animated ambient orbs */}
+      <motion.div
+        animate={{ y: [0, -28, 0], scale: [1, 1.18, 1], opacity: [0.05, 0.14, 0.05] }}
+        transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute top-1/4 left-1/3 w-96 h-96 bg-tech-blue/10 rounded-full blur-3xl pointer-events-none"
+      />
+      <motion.div
+        animate={{ y: [0, 22, 0], scale: [1, 1.12, 1], opacity: [0.04, 0.11, 0.04] }}
+        transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut', delay: 2.5 }}
+        className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-tech-purple/10 rounded-full blur-3xl pointer-events-none"
+      />
+      <motion.div
+        animate={{ x: [0, 20, 0], y: [0, -15, 0], opacity: [0.03, 0.08, 0.03] }}
+        transition={{ duration: 11, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+        className="absolute top-2/3 left-1/4 w-64 h-64 bg-tech-cyan/8 rounded-full blur-3xl pointer-events-none"
+      />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
         <motion.div

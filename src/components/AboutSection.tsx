@@ -1,7 +1,38 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Brain, Cpu, GitBranch, Layers, Network, Zap, Building2, GraduationCap } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
+
+const TiltCard = ({ children, className }: { children: React.ReactNode; className?: string }) => {
+  const rawX = useMotionValue(0);
+  const rawY = useMotionValue(0);
+  const rotateX = useSpring(useTransform(rawY, [-0.5, 0.5], [7, -7]), { stiffness: 300, damping: 30 });
+  const rotateY = useSpring(useTransform(rawX, [-0.5, 0.5], [-7, 7]), { stiffness: 300, damping: 30 });
+  const glowOpacity = useSpring(useMotionValue(0), { stiffness: 200, damping: 25 });
+
+  const onMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    rawX.set((e.clientX - rect.left) / rect.width - 0.5);
+    rawY.set((e.clientY - rect.top) / rect.height - 0.5);
+    glowOpacity.set(1);
+  };
+  const onMouseLeave = () => {
+    rawX.set(0);
+    rawY.set(0);
+    glowOpacity.set(0);
+  };
+
+  return (
+    <motion.div
+      style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
+      onMouseMove={onMouseMove}
+      onMouseLeave={onMouseLeave}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+};
 
 const journey = [
   { label: 'Software Engineer', color: 'text-muted-foreground', line: true },
@@ -101,25 +132,31 @@ const AboutSection = () => {
           className="mb-20"
         >
           <h3 className="text-center text-sm font-medium text-muted-foreground uppercase tracking-widest mb-8">Specializations</h3>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4" style={{ perspective: '1200px' }}>
             {specializations.map((spec, index) => (
               <motion.div
                 key={spec.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.07 }}
+                initial={{ opacity: 0, y: 24, scale: 0.96 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 0.5, delay: index * 0.07, ease: [0.25, 0.1, 0.25, 1] }}
                 viewport={{ once: true }}
-                whileHover={{ y: -5 }}
               >
-                <Card className={`tech-card h-full border ${spec.border} hover:${spec.border}`}>
-                  <CardContent className="p-5">
-                    <div className={`w-10 h-10 rounded-lg ${spec.bg} flex items-center justify-center mb-3`}>
-                      <spec.icon className={`w-5 h-5 ${spec.color}`} />
-                    </div>
-                    <h4 className="text-sm font-semibold text-foreground mb-1.5">{spec.title}</h4>
-                    <p className="text-xs text-muted-foreground leading-relaxed">{spec.description}</p>
-                  </CardContent>
-                </Card>
+                <TiltCard className="h-full">
+                  <Card className={`tech-card h-full border ${spec.border} transition-all duration-300 cursor-default`}>
+                    <CardContent className="p-5 relative overflow-hidden">
+                      <motion.div
+                        className={`absolute inset-0 ${spec.bg} opacity-0`}
+                        whileHover={{ opacity: 0.4 }}
+                        transition={{ duration: 0.3 }}
+                      />
+                      <div className={`w-10 h-10 rounded-lg ${spec.bg} flex items-center justify-center mb-3 relative z-10`}>
+                        <spec.icon className={`w-5 h-5 ${spec.color}`} />
+                      </div>
+                      <h4 className="text-sm font-semibold text-foreground mb-1.5 relative z-10">{spec.title}</h4>
+                      <p className="text-xs text-muted-foreground leading-relaxed relative z-10">{spec.description}</p>
+                    </CardContent>
+                  </Card>
+                </TiltCard>
               </motion.div>
             ))}
           </div>

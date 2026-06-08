@@ -1,11 +1,40 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
 import { Mail, Phone, MapPin, Send, Github, Linkedin, MessageSquare, Calendar, Bot, Cpu, Layers, Network, Wrench, Building2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
+
+const MagneticLink = ({
+  href, target, rel, title, className, children,
+}: React.AnchorHTMLAttributes<HTMLAnchorElement>) => {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const springX = useSpring(x, { stiffness: 260, damping: 18 });
+  const springY = useSpring(y, { stiffness: 260, damping: 18 });
+
+  const onMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    x.set((e.clientX - (rect.left + rect.width / 2)) * 0.38);
+    y.set((e.clientY - (rect.top + rect.height / 2)) * 0.38);
+  };
+  const onMouseLeave = () => { x.set(0); y.set(0); };
+
+  return (
+    <motion.a
+      href={href} target={target} rel={rel} title={title}
+      style={{ x: springX, y: springY }}
+      onMouseMove={onMouseMove}
+      onMouseLeave={onMouseLeave}
+      whileTap={{ scale: 0.9 }}
+      className={className}
+    >
+      {children}
+    </motion.a>
+  );
+};
 
 const services = [
   { icon: Bot, label: 'AI Agents & Copilots', color: 'text-tech-blue', bg: 'bg-tech-blue/10' },
@@ -142,18 +171,16 @@ const ContactSection = () => {
               <h4 className="text-sm font-semibold text-foreground mb-4 uppercase tracking-wider">Connect</h4>
               <div className="flex gap-3">
                 {socialLinks.map(social => (
-                  <motion.a
+                  <MagneticLink
                     key={social.label}
                     href={social.href}
                     target={social.href.startsWith('http') ? '_blank' : undefined}
                     rel={social.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    className={`w-11 h-11 rounded-xl bg-card/50 border border-border/60 flex items-center justify-center text-muted-foreground transition-all duration-200 ${social.color}`}
                     title={social.label}
+                    className={`w-11 h-11 rounded-xl bg-card/50 border border-border/60 flex items-center justify-center text-muted-foreground transition-all duration-200 ${social.color}`}
                   >
                     <social.icon className="w-5 h-5" />
-                  </motion.a>
+                  </MagneticLink>
                 ))}
               </div>
             </div>

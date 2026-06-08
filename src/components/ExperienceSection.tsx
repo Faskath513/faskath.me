@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
 import { Building, Calendar, MapPin, Briefcase } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 
@@ -86,6 +86,16 @@ const categoryColors: Record<string, string> = {
 };
 
 const ExperienceSection = () => {
+  const timelineRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: timelineRef,
+    offset: ['start 75%', 'end 40%'],
+  });
+  const lineHeight = useSpring(
+    useTransform(scrollYProgress, [0, 1], ['0%', '100%']),
+    { stiffness: 80, damping: 20 }
+  );
+
   return (
     <section id="experience" className="py-24 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -106,13 +116,22 @@ const ExperienceSection = () => {
           </p>
         </motion.div>
 
-        <div className="space-y-6">
+        <div className="relative" ref={timelineRef}>
+          {/* Animated vertical timeline line */}
+          <div className="absolute left-[27px] top-4 bottom-4 w-px bg-border/20 hidden lg:block overflow-hidden">
+            <motion.div
+              className="absolute top-0 left-0 w-full bg-gradient-to-b from-tech-blue via-tech-purple to-tech-pink"
+              style={{ height: lineHeight }}
+            />
+          </div>
+
+          <div className="space-y-6">
           {experiences.map((experience, index) => (
             <motion.div
               key={experience.id}
               initial={{ opacity: 0, x: index % 2 === 0 ? -40 : 40 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+              transition={{ duration: 0.6, delay: index * 0.1, ease: [0.25, 0.1, 0.25, 1] }}
               viewport={{ once: true }}
             >
               <Card className="tech-card group hover:scale-[1.01] transition-all duration-300">
@@ -182,6 +201,7 @@ const ExperienceSection = () => {
               </Card>
             </motion.div>
           ))}
+          </div>
         </div>
 
         <motion.div

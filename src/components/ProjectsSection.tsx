@@ -163,14 +163,17 @@ const ProjectsSection = () => {
             return (
               <motion.div
                 key={project.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.08 }}
+                initial={{ opacity: 0, y: 40, scale: 0.98 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 0.65, delay: index * 0.06, ease: [0.25, 0.1, 0.25, 1] }}
                 viewport={{ once: true }}
+                whileHover={{ y: -3 }}
               >
-                <Card className={`tech-card overflow-hidden border ${accent.border} transition-all duration-300`}>
+                <Card className={`tech-card overflow-hidden border ${accent.border} transition-all duration-300 group/card`}>
                   <CardContent className="p-0">
-                    <div className={`bg-gradient-to-r ${project.gradient} p-7`}>
+                    <div className={`relative bg-gradient-to-r ${project.gradient} p-7 overflow-hidden`}>
+                      {/* Shimmer on hover (CSS group) */}
+                      <div className="absolute inset-0 -translate-x-full group-hover/card:translate-x-[200%] bg-gradient-to-r from-transparent via-white/[0.05] to-transparent transition-transform duration-700 ease-in-out pointer-events-none" />
                       {/* Top row */}
                       <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
                         <div>
